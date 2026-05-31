@@ -44,8 +44,7 @@ def model() -> nn.Module:
 @pytest.fixture(scope="module")
 def dummy_image() -> Image.Image:
     """A random RGB PIL image at the expected input resolution."""
-    import numpy as np
-    arr = (torch.rand(IMG_SIZE, IMG_SIZE, 3).numpy() * 255).astype("uint8")
+    arr = (torch.rand(IMG_SIZE, IMG_SIZE, 3) * 255).byte().numpy()
     return Image.fromarray(arr)
 
 
@@ -117,7 +116,6 @@ class TestTransforms:
 
 class TestPlantDiseaseDataset:
     def _make_dataset(self, dummy_image, class_names, n=10):
-        paths  = [dummy_image] * n   # reuse PIL image as source
         labels = list(range(n % len(class_names))) + [0] * (n - n % len(class_names))
         labels = labels[:n]
         # Patch open to return the dummy image directly
