@@ -1,0 +1,28 @@
+{
+  "_comment": "Default training configuration for PlantDx v2.0",
+  "model": {
+    "architecture": "efficientnet_b4",
+    "dropout_rate": 0.4,
+    "pretrained": true
+  },
+  "training": {
+    "epochs": 30,
+    "batch_size": 32,
+    "learning_rate": 3e-4,
+    "weight_decay": 1e-4,
+    "label_smoothing": 0.1,
+    "patience": 7,
+    "seed": 42
+  },
+  "data": {
+    "val_size": 0.15,
+    "test_size": 0.15,
+    "num_workers": 4,
+    "image_size": 380
+  },
+  "dataset": {
+    "name": "PlantVillage",
+    "num_classes": 38,
+    "source": "https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset"
+  }
+}

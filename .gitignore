@@ -1,0 +1,89 @@
+# ─── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ─── Virtual Environments ─────────────────────────────────────────────────────
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.python-version
+
+# ─── ML / Model Weights ───────────────────────────────────────────────────────
+# Weights are distributed via GitHub Releases — do NOT commit them
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.pb
+*.onnx
+*.tflite
+*.bin
+*.safetensors
+
+# ─── Training Artifacts ───────────────────────────────────────────────────────
+runs/
+outputs/
+checkpoints/
+logs/
+wandb/
+mlruns/
+*.log
+
+# ─── Dataset ──────────────────────────────────────────────────────────────────
+# Raw dataset should be downloaded separately (see README)
+data/raw/
+data/processed/
+*.csv
+*.json
+!configs/*.json
+
+# ─── Jupyter ──────────────────────────────────────────────────────────────────
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# ─── IDE / Editor ─────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ─── Testing ──────────────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.coveragerc
+
+# ─── Distribution / Build ─────────────────────────────────────────────────────
+*.manifest
+*.spec

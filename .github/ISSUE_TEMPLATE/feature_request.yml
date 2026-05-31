@@ -1,0 +1,41 @@
+name: Feature Request
+description: Suggest an enhancement or new capability
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What problem does this feature solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe your suggested approach.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any alternative approaches you evaluated?
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Model architecture
+        - Training pipeline
+        - Inference / prediction
+        - Dataset handling
+        - Documentation
+        - CI / tooling
+        - Other
+    validations:
+      required: true

@@ -1,0 +1,26 @@
+# ─── Core ML Stack ────────────────────────────────────────────────────────────
+torch>=2.2.0
+torchvision>=0.17.0
+torchaudio>=2.2.0          # pulled in by torch; pinned for reproducibility
+
+# ─── Data & Numerics ──────────────────────────────────────────────────────────
+numpy>=1.26.0,<2.0.0
+Pillow>=10.2.0
+scikit-learn>=1.4.0
+pandas>=2.2.0
+
+# ─── Visualisation ────────────────────────────────────────────────────────────
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# ─── Training Utilities ───────────────────────────────────────────────────────
+tqdm>=4.66.0
+
+# ─── Inference / API (optional, for serving) ──────────────────────────────────
+# fastapi>=0.110.0
+# uvicorn[standard]>=0.29.0
+# python-multipart>=0.0.9
+
+# ─── Development & Testing ────────────────────────────────────────────────────
+pytest>=8.1.0
+pytest-cov>=5.0.0
