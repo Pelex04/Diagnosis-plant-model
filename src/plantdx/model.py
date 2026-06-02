@@ -169,7 +169,7 @@ class PlantDiseaseClassifier:
             A list of dicts sorted by confidence (descending), e.g.:
             [{'class': 'Tomato_Leaf_Blight', 'confidence': 0.942}, ...]
         """
-        if isinstance(image_source, (str, Path)):
+        if isinstance(image_source, str | Path):
             image = Image.open(image_source).convert("RGB")
         else:
             image = image_source.convert("RGB")
