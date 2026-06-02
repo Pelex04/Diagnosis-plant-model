@@ -61,7 +61,7 @@ jobs:
         run: pip install "ruff==0.4.9"
 
       - name: Ruff lint
-        run: ruff check src/ scripts/ tests/
+        run: ruff check src/ scripts/ tests/ --select E,F,W,I,UP
 
   docker:
     name: Docker Smoke Test
