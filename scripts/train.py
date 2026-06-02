@@ -30,7 +30,7 @@ import sys
 from pathlib import Path
 
 # Allow running from the repo root without installing the package
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))  # noqa: E402
 
 from plantdx import Trainer, build_dataloaders, build_model, get_train_transform, get_val_transform
 

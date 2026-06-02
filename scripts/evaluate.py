@@ -39,7 +39,7 @@ import torch
 from sklearn.metrics import classification_report, confusion_matrix
 from tqdm import tqdm
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))  # noqa: E402
 
 from plantdx import PlantDiseaseClassifier, build_dataloaders, get_val_transform
 
