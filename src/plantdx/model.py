@@ -19,7 +19,6 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
-from typing import Dict, List
 
 import torch
 import torch.nn as nn
@@ -112,7 +111,7 @@ class PlantDiseaseClassifier:
      {'class': 'Tomato_Mosaic_Virus','confidence': 0.017}]
     """
 
-    def __init__(self, model: nn.Module, class_names: List[str], device: torch.device) -> None:
+    def __init__(self, model: nn.Module, class_names: list[str], device: torch.device) -> None:
         self.model      = model.to(device)
         self.class_names = class_names
         self.device     = device
@@ -121,7 +120,7 @@ class PlantDiseaseClassifier:
     # ── Constructors ──────────────────────────────────────────────────────────
 
     @classmethod
-    def from_checkpoint(cls, checkpoint_path: str | Path) -> "PlantDiseaseClassifier":
+    def from_checkpoint(cls, checkpoint_path: str | Path) -> PlantDiseaseClassifier:
         """
         Load a classifier from a .pth checkpoint saved by the Trainer.
 
@@ -157,7 +156,7 @@ class PlantDiseaseClassifier:
         image_source: str | Path | Image.Image,
         top_k: int = 5,
         confidence_threshold: float = 0.0,
-    ) -> List[Dict[str, float | str]]:
+    ) -> list[dict[str, float | str]]:
         """
         Run inference on a single image.
 
@@ -197,9 +196,9 @@ class PlantDiseaseClassifier:
 
     def predict_batch(
         self,
-        image_paths: List[str | Path],
+        image_paths: list[str | Path],
         top_k: int = 1,
-    ) -> List[List[Dict[str, float | str]]]:
+    ) -> list[list[dict[str, float | str]]]:
         """
         Run inference on a list of image paths.
 

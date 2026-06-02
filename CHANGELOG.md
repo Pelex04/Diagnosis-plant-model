@@ -6,6 +6,31 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+
+## [Unreleased]
+
+### Added
+- `pyproject.toml` — package now properly installable via `pip install -e .`
+  with optional extras: `[dev]` for testing, `[gradcam]` for explainability
+- `src/plantdx/py.typed` — PEP 561 typed package marker
+- `scripts/evaluate.py` — full evaluation CLI: classification report
+  (precision/recall/F1 per class), confusion matrix PNG, JSON export
+- `scripts/gradcam.py` — Grad-CAM explainability CLI; highlights leaf
+  regions the model attends to; supports single image and batch modes
+- `notebooks/demo.ipynb` — end-to-end demo: load checkpoint → predict →
+  confidence bar chart → Grad-CAM heatmap → batch inference grid
+- `CONTRIBUTING.md` — fork/branch/PR workflow, code style, test instructions
+- `SECURITY.md` — responsible disclosure policy; enables GitHub's
+  "Report a vulnerability" button
+- `Dockerfile` — multi-stage build (builder + slim runtime), non-root user,
+  health check; CPU build by default, GPU-ready with index URL swap
+- `.dockerignore` — excludes weights, data, and dev artefacts from image
+- `.github/PULL_REQUEST_TEMPLATE.md` — structured PR checklist
+
+### Fixed
+- `requirements.txt`: removed `torchaudio` (vision-only project, no audio dep)
+- `requirements.txt`: added `grad-cam>=1.5.0` as commented optional dependency
+- `.gitignore`: added explicit `!docs/assets/` exception to keep sample images
 ## [2.0.0] — 2026-05-31
 
 Major rewrite. Breaking changes from v1.0.0.

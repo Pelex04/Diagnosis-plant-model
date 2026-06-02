@@ -1,0 +1,40 @@
+# Git
+.git/
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# ML artefacts
+*.pth
+*.pt
+*.ckpt
+checkpoints/
+runs/
+outputs/
+
+# Data (mount at runtime instead)
+data/
+
+# Docs & notebooks
+docs/
+notebooks/
+reports/
+
+# Dev files
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+*.log
+
+# IDE
+.vscode/
+.idea/
+.DS_Store

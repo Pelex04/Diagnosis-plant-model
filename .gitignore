@@ -87,3 +87,7 @@ coverage.xml
 # ─── Distribution / Build ─────────────────────────────────────────────────────
 *.manifest
 *.spec
+
+# Keep docs assets (sample images for README)
+!docs/assets/
+!docs/assets/**

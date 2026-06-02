@@ -19,7 +19,6 @@ from __future__ import annotations
 import logging
 import time
 from pathlib import Path
-from typing import Dict, List, Tuple
 
 import matplotlib.pyplot as plt
 import torch
@@ -83,7 +82,7 @@ class Trainer:
         model:         nn.Module,
         train_loader:  DataLoader,
         val_loader:    DataLoader,
-        class_names:   List[str],
+        class_names:   list[str],
         output_dir:    str | Path = "checkpoints",
         learning_rate: float = 3e-4,
         weight_decay:  float = 1e-4,
@@ -108,7 +107,7 @@ class Trainer:
         self.scaler     = GradScaler(enabled=self.device.type == "cuda")
         self.early_stop = EarlyStopping(patience=patience)
 
-        self.history: Dict[str, List[float]] = {
+        self.history: dict[str, list[float]] = {
             "train_loss": [], "train_acc": [],
             "val_loss":   [], "val_acc":   [],
         }
@@ -121,7 +120,7 @@ class Trainer:
 
     # ── Core loop ─────────────────────────────────────────────────────────────
 
-    def fit(self) -> Dict[str, List[float]]:
+    def fit(self) -> dict[str, list[float]]:
         """Run the full training loop. Returns the training history dict."""
         logger.info("─── Training started ───────────────────────────────────")
         t0 = time.time()
@@ -164,7 +163,7 @@ class Trainer:
         self._save_training_curves()
         return self.history
 
-    def evaluate_test(self, test_loader: DataLoader) -> Tuple[float, float]:
+    def evaluate_test(self, test_loader: DataLoader) -> tuple[float, float]:
         """
         Evaluate on the held-out test set.
 
@@ -177,7 +176,7 @@ class Trainer:
 
     # ── Internal helpers ──────────────────────────────────────────────────────
 
-    def _train_epoch(self, epoch: int) -> Tuple[float, float]:
+    def _train_epoch(self, epoch: int) -> tuple[float, float]:
         self.model.train()
         total_loss = 0.0
         correct = total = 0
@@ -208,7 +207,7 @@ class Trainer:
         return total_loss / len(self.train_loader), 100.0 * correct / total
 
     @torch.no_grad()
-    def _eval_epoch(self, loader: DataLoader, desc: str = "Eval") -> Tuple[float, float]:
+    def _eval_epoch(self, loader: DataLoader, desc: str = "Eval") -> tuple[float, float]:
         self.model.eval()
         total_loss = 0.0
         correct = total = 0

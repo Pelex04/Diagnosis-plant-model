@@ -25,7 +25,6 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
 
 import torch
 from PIL import Image
@@ -53,10 +52,10 @@ class PlantDiseaseDataset(Dataset):
 
     def __init__(
         self,
-        image_paths: List[Path],
-        labels: List[int],
-        class_names: List[str],
-        transform: Optional[transforms.Compose] = None,
+        image_paths: list[Path],
+        labels: list[int],
+        class_names: list[str],
+        transform: transforms.Compose | None = None,
     ) -> None:
         assert len(image_paths) == len(labels), "Mismatch between paths and labels."
         self.image_paths = image_paths
@@ -67,7 +66,7 @@ class PlantDiseaseDataset(Dataset):
     def __len__(self) -> int:
         return len(self.image_paths)
 
-    def __getitem__(self, idx: int) -> Tuple[torch.Tensor, int]:
+    def __getitem__(self, idx: int) -> tuple[torch.Tensor, int]:
         image = Image.open(self.image_paths[idx]).convert("RGB")
         if self.transform:
             image = self.transform(image)
@@ -77,9 +76,9 @@ class PlantDiseaseDataset(Dataset):
     def num_classes(self) -> int:
         return len(self.class_names)
 
-    def class_distribution(self) -> Dict[str, int]:
+    def class_distribution(self) -> dict[str, int]:
         """Return a dict mapping class name → sample count."""
-        dist: Dict[str, int] = {name: 0 for name in self.class_names}
+        dist: dict[str, int] = {name: 0 for name in self.class_names}
         for label in self.labels:
             dist[self.class_names[label]] += 1
         return dist
@@ -87,7 +86,7 @@ class PlantDiseaseDataset(Dataset):
 
 # ─── Data loading helpers ─────────────────────────────────────────────────────
 
-def _scan_directory(data_dir: Path) -> Tuple[List[Path], List[int], List[str]]:
+def _scan_directory(data_dir: Path) -> tuple[list[Path], list[int], list[str]]:
     """
     Walk a PlantVillage-style directory and return (paths, labels, class_names).
 
@@ -103,8 +102,8 @@ def _scan_directory(data_dir: Path) -> Tuple[List[Path], List[int], List[str]]:
         raise ValueError(f"No class subdirectories found in '{data_dir}'.")
 
     class_names = [d.name for d in class_dirs]
-    image_paths: List[Path] = []
-    labels: List[int] = []
+    image_paths: list[Path] = []
+    labels: list[int] = []
 
     for class_idx, class_dir in enumerate(class_dirs):
         images = [
@@ -134,7 +133,7 @@ def build_dataloaders(
     test_size:     float = 0.15,
     num_workers:   int   = 4,
     random_state:  int   = 42,
-) -> Tuple[DataLoader, DataLoader, DataLoader, List[str]]:
+) -> tuple[DataLoader, DataLoader, DataLoader, list[str]]:
     """
     Build train / val / test DataLoaders from a PlantVillage-style directory.
 

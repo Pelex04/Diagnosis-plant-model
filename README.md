@@ -264,17 +264,96 @@ Diagnosis-plant-model/
 ├── archive/                  # Original v1.0.0 source (preserved for reference)
 │
 ├── .github/
-│   ├── workflows/ci.yml      # GitHub Actions CI
-│   └── ISSUE_TEMPLATE/       # Bug report & feature request templates
+│   ├── workflows/ci.yml           # GitHub Actions CI
+│   ├── ISSUE_TEMPLATE/            # Bug report & feature request templates
+│   └── PULL_REQUEST_TEMPLATE.md   # PR checklist
+│
+├── notebooks/
+│   └── demo.ipynb            # End-to-end demo notebook
 │
 ├── data/                     # Dataset directory (not committed — download separately)
 ├── checkpoints/              # Model weights (not committed — see Releases)
+├── reports/                  # Evaluation outputs (confusion matrix, JSON)
 │
+├── pyproject.toml            # Package config — pip install -e ".[dev]"
 ├── requirements.txt
+├── Dockerfile
+├── .dockerignore
 ├── .gitignore
 ├── LICENSE
 ├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── SECURITY.md
 └── README.md
+```
+
+---
+
+## Evaluation
+
+Generate a full classification report and confusion matrix on the held-out test set:
+
+```bash
+python scripts/evaluate.py \
+    --checkpoint checkpoints/best_model.pth \
+    --data_dir   data/                       \
+    --split      test                        \
+    --output_dir reports/
+```
+
+Outputs:
+- `reports/eval_report_test.json` — per-class precision, recall, F1, accuracy
+- `reports/confusion_matrix_test.png` — normalised confusion matrix heatmap
+
+---
+
+## Explainability (Grad-CAM)
+
+Visualise *which regions of the leaf* the model attends to when making a prediction:
+
+```bash
+# Install the optional dependency first
+pip install grad-cam
+
+# Single image
+python scripts/gradcam.py \
+    --checkpoint checkpoints/best_model.pth \
+    --image      leaf.jpg
+
+# Batch
+python scripts/gradcam.py \
+    --checkpoint checkpoints/best_model.pth \
+    --image_dir  /path/to/images/ \
+    --output_dir reports/gradcam/
+```
+
+Grad-CAM produces a side-by-side of the original leaf and a heatmap overlay
+highlighting the lesion regions that drove the classification — essential for
+agronomist trust and model validation.
+---
+
+## Docker
+
+```bash
+# Build
+docker build -t plantdx:latest .
+
+# Predict (single image)
+docker run --rm \
+  -v /path/to/checkpoints:/app/checkpoints:ro \
+  -v /path/to/images:/app/images:ro \
+  plantdx:latest predict \
+    --checkpoint /app/checkpoints/best_model.pth \
+    --image      /app/images/leaf.jpg \
+    --top_k      3
+
+# GPU (requires nvidia-docker)
+docker run --rm --gpus all \
+  -v /path/to/checkpoints:/app/checkpoints:ro \
+  -v /path/to/images:/app/images:ro \
+  plantdx:latest predict \
+    --checkpoint /app/checkpoints/best_model.pth \
+    --image_dir  /app/images/
 ```
 
 ---
@@ -292,6 +371,13 @@ pytest tests/ --cov=src/plantdx --cov-report=term-missing
 pip install ruff
 ruff check src/ scripts/ tests/
 ```
+---
+
+## Contributing
+
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) for
+the full workflow: fork → branch → test → PR.
+
 
 ---
 

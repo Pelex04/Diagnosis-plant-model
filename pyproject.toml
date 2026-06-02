@@ -1,0 +1,95 @@
+[build-system]
+requires      = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name            = "plantdx"
+version         = "2.0.0"
+description     = "EfficientNet-B4 plant disease classifier trained on PlantVillage"
+readme          = "README.md"
+license         = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors         = [{ name = "Pelex04" }]
+keywords        = [
+    "plant-disease", "deep-learning", "computer-vision",
+    "efficientnet", "pytorch", "agriculture", "plantvillage",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+]
+dependencies = [
+    "torch>=2.2.0",
+    "torchvision>=0.17.0",
+    "numpy>=1.26.0,<2.0.0",
+    "Pillow>=10.2.0",
+    "scikit-learn>=1.4.0",
+    "pandas>=2.2.0",
+    "matplotlib>=3.8.0",
+    "seaborn>=0.13.0",
+    "tqdm>=4.66.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.1.0",
+    "pytest-cov>=5.0.0",
+    "ruff>=0.4.0",
+]
+gradcam = [
+    "grad-cam>=1.5.0",
+]
+
+[project.scripts]
+plantdx-train   = "plantdx.cli:train"
+plantdx-predict = "plantdx.cli:predict"
+
+[project.urls]
+Homepage      = "https://github.com/Pelex04/Diagnosis-plant-model"
+Repository    = "https://github.com/Pelex04/Diagnosis-plant-model"
+"Bug Tracker" = "https://github.com/Pelex04/Diagnosis-plant-model/issues"
+Changelog     = "https://github.com/Pelex04/Diagnosis-plant-model/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+plantdx = ["py.typed"]
+
+# ── Ruff ──────────────────────────────────────────────────────────────────────
+[tool.ruff]
+line-length    = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP"]
+ignore = ["E501"]   # line-length handled by formatter
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]   # assert is fine in tests
+
+# ── Pytest ────────────────────────────────────────────────────────────────────
+[tool.pytest.ini_options]
+testpaths    = ["tests"]
+addopts      = "-v --tb=short"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning",
+]
+
+# ── Coverage ──────────────────────────────────────────────────────────────────
+[tool.coverage.run]
+source  = ["src/plantdx"]
+omit    = ["tests/*"]
+
+[tool.coverage.report]
+show_missing   = true
+skip_covered   = false
+fail_under     = 60
