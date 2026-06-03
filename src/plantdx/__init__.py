@@ -19,7 +19,12 @@ except PackageNotFoundError:
     __version__ = "2.0.0"
 
 from .dataset import PlantDiseaseDataset, build_dataloaders
-from .model import PlantDiseaseClassifier, build_model, get_train_transform, get_val_transform
+from .model import (
+    PlantDiseaseClassifier,
+    build_model,
+    get_train_transform,
+    get_val_transform,
+)
 from .trainer import Trainer
 
 __all__ = [
