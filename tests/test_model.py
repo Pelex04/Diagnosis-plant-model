@@ -16,17 +16,25 @@ import torch
 import torch.nn as nn
 from PIL import Image
 
-# Ensure the src package is importable without installing
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-
-from plantdx.model import (
-    PlantDiseaseClassifier,
-    build_model,
-    get_train_transform,
-    get_val_transform,
-)
-from plantdx.dataset import PlantDiseaseDataset
-
+try:
+    from plantdx.dataset import PlantDiseaseDataset
+    from plantdx.model import (
+        PlantDiseaseClassifier,
+        build_model,
+        get_train_transform,
+        get_val_transform,
+    )
+except ImportError:
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+    from plantdx.dataset import PlantDiseaseDataset  # noqa: E402
+    from plantdx.model import (  # noqa: E402
+        PlantDiseaseClassifier,
+        build_model,
+        get_train_transform,
+        get_val_transform,
+    )
 
 # ─── Fixtures ─────────────────────────────────────────────────────────────────
 
