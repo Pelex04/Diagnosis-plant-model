@@ -30,9 +30,9 @@ import logging
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))  # noqa: E402, I001
 
-from plantdx import PlantDiseaseClassifier
+from plantdx import PlantDiseaseClassifier  # noqa: E402, I001
 
 logging.basicConfig(
     level=logging.INFO,

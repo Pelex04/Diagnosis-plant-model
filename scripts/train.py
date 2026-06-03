@@ -30,9 +30,9 @@ import sys
 from pathlib import Path
 
 # Allow running from the repo root without installing the package
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))  # noqa: E402, I001
 
-from plantdx import Trainer, build_dataloaders, build_model, get_train_transform, get_val_transform
+from plantdx import Trainer, build_dataloaders, build_model, get_train_transform, get_val_transform  # noqa: E402, I001
 
 # ─── Logging setup ────────────────────────────────────────────────────────────
 logging.basicConfig(

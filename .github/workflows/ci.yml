@@ -58,10 +58,10 @@ jobs:
           cache: pip
 
       - name: Install lint tools
-        run: pip install "ruff==0.4.9"
+        run: pip install "ruff>=0.4.0"
 
       - name: Ruff lint
-        run: ruff check src/ scripts/ tests/ --select E,F,W,I,UP
+        run: ruff check src/ scripts/ tests/ --select E,F,W,I,UP --output-format github
 
   docker:
     name: Docker Smoke Test

@@ -43,9 +43,9 @@ import numpy as np
 import torch
 from PIL import Image
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))  # noqa: E402, I001
 
-from plantdx import PlantDiseaseClassifier, get_val_transform
+from plantdx import PlantDiseaseClassifier, get_val_transform  # noqa: E402, I001
 
 logging.basicConfig(
     level=logging.INFO,
